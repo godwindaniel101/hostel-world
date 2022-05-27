@@ -367,7 +367,7 @@
                     "events"
                 ],
                 "summary": "Get Events V2",
-                "description": "Note : thiis endpoint has the date changed. to allow for testing of date",
+                "description": "Note : query json file",
                 "operationId": "getEventsV2",
                 "parameters": [
                     {
