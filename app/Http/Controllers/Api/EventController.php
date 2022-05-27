@@ -108,7 +108,7 @@ class EventController extends BaseController
      * path="/api/events_v2",
      * security={{ "token": {} }},
      * summary="Get Events V2",
-     * description="Note : query json file",
+     * description="Note : thiis endpoint has the date changed. to allow for testing of date",
      * operationId="getEventsV2",
      * tags={"events"},
      * @OA\Parameter(

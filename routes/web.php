@@ -20,6 +20,6 @@ Route::get('/health', function () {
 });
 
 
-// Route::fallback(function (Request $request) {
-//     return (new Helpers())->errorResponder(null, 404, 'Route [ ' . $request->url() . ' ] Not Found');
-// });
+Route::fallback(function (Request $request) {
+    return (new Helpers())->errorResponder(null, 404, 'Route [ ' . $request->url() . ' ] Not Found');
+});
