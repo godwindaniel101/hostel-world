@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\RegistrationRequest;
-use App\Http\Controllers\API\BaseController;
+use App\Http\Controllers\Api\BaseController;
 
 class AuthenticationController extends BaseController
 {
