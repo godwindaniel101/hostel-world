@@ -177,8 +177,7 @@ class EventController extends BaseController
     {
         if (!empty($term) && !empty($date)) {
             return ($event['startDate'] == $date) &&
-                (isMatch($event['city'], $term) ||
-                    isMatch($event['country'], $term));
+                (isMatch($event['city'], $term) || isMatch($event['country'], $term));
         }
         return (isMatch($event['city'], $term) ||
             isMatch($event['country'], $term));
