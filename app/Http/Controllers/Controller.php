@@ -17,7 +17,7 @@ use Illuminate\Routing\Controller as BaseController;
  *    securityScheme="token",
  *    in="header",
  *    name="token",
- *    type="http",
+ *    type="https",
  *    scheme="bearer",
  *    bearerFormat="JWT",
  * ),
