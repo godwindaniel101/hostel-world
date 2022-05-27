@@ -108,7 +108,7 @@ class EventController extends BaseController
      * path="/api/events_v2",
      * security={{ "token": {} }},
      * summary="Get Events V2",
-     * description="Note : thiis endpoint has the date changed. to allow for testing of date",
+     * description="Note : query json file",
      * operationId="getEventsV2",
      * tags={"events"},
      * @OA\Parameter(
@@ -153,29 +153,6 @@ class EventController extends BaseController
      *              ),
      *        )
      *     ),
-     * @OA\Response(
-     *    response=401,
-     *    description="Unathenticated logout attempt",
-     *    @OA\JsonContent(
-     *         @OA\Property(
-     *              property="success", 
-     *              type="boolean" , 
-     *              default="false"
-     *              ),
-     *         @OA\Property(
-     *              property="data", 
-     *              type="object", 
-     *              default="null"
-     *              ),
-     *         @OA\Property(
-     *              property="message", 
-     *              type="string", 
-     *              example="Unauthenticated."
-     *              ),
-     *        )
-     *     )
-     * 
-     * )
      */
     public function indexTwo(EventRequest $request)
     {

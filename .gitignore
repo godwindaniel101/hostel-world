@@ -13,3 +13,9 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+
+
+# But not these files...
+!.storage/api-docs
+!.storage/json
+# etc...

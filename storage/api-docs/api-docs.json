@@ -360,6 +360,97 @@
                     }
                 ]
             }
+        },
+        "/api/events_v2": {
+            "get": {
+                "tags": [
+                    "events"
+                ],
+                "summary": "Get Events V2",
+                "description": "Note : thiis endpoint has the date changed. to allow for testing of date",
+                "operationId": "getEventsV2",
+                "parameters": [
+                    {
+                        "name": "term",
+                        "in": "query",
+                        "description": "Search by city and country"
+                    },
+                    {
+                        "name": "date",
+                        "in": "query",
+                        "description": "Filter by exact date"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get array of events",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": "true"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Event"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "next_page_url": {
+                                            "description": "User unique email address",
+                                            "type": "string",
+                                            "format": "email",
+                                            "example": "user@gmail.com"
+                                        },
+                                        "path": {
+                                            "description": "next page url",
+                                            "type": "string",
+                                            "example": "http://localhost:8001/api/events"
+                                        },
+                                        "per_page": {
+                                            "description": "number of result per page",
+                                            "type": "string",
+                                            "example": "20"
+                                        },
+                                        "prev_page_url": {
+                                            "description": "previous page url",
+                                            "type": "string",
+                                            "example": "null"
+                                        },
+                                        "to": {
+                                            "description": "item count",
+                                            "type": "string",
+                                            "example": "null"
+                                        },
+                                        "total": {
+                                            "description": "total record count",
+                                            "type": "string",
+                                            "example": "null"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
         }
     },
     "components": {
