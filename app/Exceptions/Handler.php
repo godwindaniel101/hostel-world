@@ -47,7 +47,7 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         $env = config('app.env');
-        if ($exception instanceof Exception) {
+        if ($exception instanceof Exception && !($exception instanceof AuthenticationException)) {
             $code = $exception->getCode();
             if ($code == 0) $code = 500;
             return (new Helpers())->errorResponder(null, $code, $exception->getMessage());

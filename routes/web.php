@@ -15,11 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/health', function () {
     return response()->json(["message" => "health check all good"]);
 });
 
 
-Route::fallback(function (Request $request) {
-    return (new Helpers())->errorResponder(null, 404, 'Route [ ' . $request->url() . ' ] Not Found');
-});
+// Route::fallback(function (Request $request) {
+//     return (new Helpers())->errorResponder(null, 404, 'Route [ ' . $request->url() . ' ] Not Found');
+// });

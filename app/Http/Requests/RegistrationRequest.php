@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Requests;
-use App\Http\Requests\ApiRequest;
 
+use App\Http\Requests\ApiRequest;
 class RegistrationRequest extends ApiRequest
 {
     public function rules()
