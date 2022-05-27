@@ -18,7 +18,7 @@ class Helpers
         return response()->json($result, $statusCode);
     }
 
-    public function successResponder($data = null, $statusCode, $message = 'Action was Successfull')
+    public function successResponder($data = null, $statusCode=200, $message = 'Action was Successfull')
     {
         $result = [
             'success' =>  true,
