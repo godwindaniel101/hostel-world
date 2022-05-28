@@ -96,7 +96,7 @@ class EventController extends BaseController
         } // filter by term
 
         if (!isEmpty($date)) {
-            $event = $event->whereDate('startDate', $date);
+            $event = $event->where('startDate', $date);
         } //search by date
 
         $event = $event->paginate(20);
