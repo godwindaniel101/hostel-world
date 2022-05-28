@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use Exception;
 use App\Models\Event;
 use App\Utilities\Helpers;
+use Illuminate\Support\Carbon;
 use App\Http\Requests\EventRequest;
 use App\Http\Controllers\Api\BaseController;
 
@@ -86,23 +88,29 @@ class EventController extends BaseController
 
     public function index(EventRequest $request)
     {
-        $date =  $request->date;
-        $term = $request->term;
-        $event = Event::select();
+        try {
+            $date =  $request->date;
+            $term = $request->term;
+            $event = Event::select();
 
-        if (!isEmpty($term)) {
-            $event = $event
-                ->where('city', 'like', '%' . $term . '%')
-                ->orWhere('country', 'like', '%' . $term . '%');
-        } // filter by term
+            if (!isEmpty($date)) {
+                $event = $event->whereDate('startDate', '=',  $date);
+            }
 
-        if (!isEmpty($date)) {
-            $event = $event->where('startDate', '=',  $date);
-        } //search by date
-        
-        $event = $event->paginate(20);
-        $this->log($request, 'Succesfully Called Events');
-        return $this->sendResponse($event, 'Events called successfully.');
+            if (!isEmpty($term)) {
+                $event = $event->where(function($q) use ($term) {
+                    $q->where('city', 'like', '%' . $term . '%')
+                    ->orWhere('country', 'like', '%' . $term . '%');
+                });
+            } // filter by term
+
+
+            $event = $event->paginate(20);
+            $this->log($request, 'Succesfully Called Events');
+            return $this->sendResponse($event, 'Events called successfully.');
+        } catch (Exception $e) {
+            dd($e);
+        }
     }
     /**
      * @OA\Get(
