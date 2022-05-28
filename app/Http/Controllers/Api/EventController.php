@@ -88,7 +88,6 @@ class EventController extends BaseController
 
     public function index(EventRequest $request)
     {
-        try {
             $date =  $request->date;
             $term = $request->term;
             $event = Event::select();
@@ -104,13 +103,9 @@ class EventController extends BaseController
                 });
             } // filter by term
 
-
             $event = $event->paginate(20);
             $this->log($request, 'Succesfully Called Events');
             return $this->sendResponse($event, 'Events called successfully.');
-        } catch (Exception $e) {
-            dd($e);
-        }
     }
     /**
      * @OA\Get(
