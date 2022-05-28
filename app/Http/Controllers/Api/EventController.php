@@ -90,14 +90,14 @@ class EventController extends BaseController
         $date =  $request->date;
         $term = $request->term;
 
-        if (!isEmpty($date)) {
-            $event = $event->whereDate('startDate', $date);
-        } //search by date
-
         if (!isEmpty($term)) {
             $event = $event->where('city', 'like', '%' . $term . '%')
                 ->orWhere('country', 'like', '%' . $term . '%');
         } // filter by term
+
+        if (!isEmpty($date)) {
+            $event = $event->whereDate('startDate', $date);
+        } //search by date
 
         $event = $event->paginate(20);
         $this->log($request, 'Succesfully Called Events');
