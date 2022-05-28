@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_HOST=localhost
+      - MYSQL_ROOT_HOST=localhost
+      - MYSQL_DATABASE=hostel_world
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=password
+    volumes:
+      - ./docker/mysqldata:/var/lib/mysql/
+
+  phpmyadmin:
+      image: phpmyadmin:latest
+      ports:
+        - 8020:80
+      depends_on:
+        - mysql
+      environment:
+        PMA_HOST: mysql
+        PMA_USER: hostel_world
+        PMA_PASSWORD: password
+      restart: unless-stopped
+      
+  app:
+    container_name: app
+    build:
+      context: .
+    ports:
+      - "8008:80"
+    volumes:
+      - ./:/var/www/html
+      - ./apache/default.conf:/etc/apache2/sites-enabled/000-default.conf
+    depends_on:
+      - mysql
