@@ -3,18 +3,22 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Requests\LoginRequest;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Api\BaseController;
+use App\Repository\UserInterface;
 
 class LoginController extends BaseController
 {
-     /**
+    public function __construct(UserInterface $userInterface)
+    {
+        $this->user = $userInterface;
+    }
+    /**
      * @OA\Post(
      * path="/api/login",
      * summary="Sign in",
      * description="Login by email, password",
      * operationId="authLogin",
-     * tags={"auth"},
+     * tags={"Authentication"},
      * @OA\RequestBody(
      *    required=true,
      *    description="Pass user credentials",
@@ -45,15 +49,57 @@ class LoginController extends BaseController
      *       @OA\Property(
      *              property="data", 
      *              type="object", 
-     *              @OA\Property(property="id", type="integer", readOnly="true", example="1"),
-     *              @OA\Property(property="name", type="string", example="John"),
-     *              @OA\Property(property="email", type="string", readOnly="true", format="email", description="User unique email address", example="user@gmail.com"),
-     *              @OA\Property(property="email_verified_at", type="string", readOnly="true", format="date-time", description="Datetime marker of verification status", example="2019-02-25 12:59:20"),
-     *              @OA\Property(property="created_at", type="string", format="date-time", description="Initial creation timestamp", readOnly="true"),
-     *              @OA\Property(property="updated_at", type="string", format="date-time", description="Last update timestamp", readOnly="true"),
-     *              @OA\Property(property="token", type="string"),
+     *              @OA\Property(
+     *              property="id", 
+     *              type="integer", 
+     *              readOnly="true", 
+     *              example="1"
      *              ),
-     *       @OA\Property(property="message", type="string", example="User login successfully.")
+     *      @OA\Property(
+     *              property="name", 
+     *              type="string", 
+     *              example="John"
+     *              ),
+     *      @OA\Property(
+     *              property="email", 
+     *              type="string", 
+     *              readOnly="true", 
+     *              format="email", 
+     *              description="User unique email address",
+     *              example="user@gmail.com"
+     *              ),
+     *      @OA\Property(
+     *              property="email_verified_at", 
+     *              type="string", 
+     *              readOnly="true", 
+     *              format="date-time", 
+     *              description="Datetime marker of verification status", 
+     *              example="2019-02-25 12:59:20"
+     *              ),
+     *      @OA\Property(
+     *              property="created_at", 
+     *              type="string", 
+     *              format="date-time", 
+     *              description="Initial creation timestamp", 
+     *              readOnly="true"
+     *              ),
+     *              @OA\Property(
+     *              property="updated_at", 
+     *              type="string", 
+     *              format="date-time", 
+     *              description="Last update timestamp", 
+     *              readOnly="true"
+     *              ),
+     *      @OA\Property(
+     *              property="token", 
+     *              type="string"
+     *              ),
+     *              ),
+     *       @OA\Property(
+     *              property="message", 
+     *              type="string", 
+     *              example="User login successfully."
+     *              )
      *        )
      *     )
      * )
@@ -81,17 +127,7 @@ class LoginController extends BaseController
      */
     public function login(LoginRequest $request)
     {
-        if (!Auth::attempt($request->all())) {
-            return $this->sendError(
-                null,
-                'incorrect username or password.',
-                422
-            );
-        }
-
-        $user = Auth::user();
-        $user['token'] = $user->createToken('token')->accessToken;
-        return $this->sendResponse($user, 'User login successfully.');
+        return $this->user->login($request);
     }
     /**
      * @OA\Delete(
@@ -100,7 +136,7 @@ class LoginController extends BaseController
      * summary="Logout",
      * description="Logout user and invalidate token",
      * operationId="authLogout",
-     * tags={"auth"},
+     * tags={"Authentication"},
      * @OA\Response(
      *    response=200,
      *    description="Successful log out",
@@ -143,9 +179,6 @@ class LoginController extends BaseController
      */
     public function logout()
     {
-        $user = Auth::user();
-        $user = $user->token();
-        $user->revoke();
-        return $this->sendResponse(null, 'User logged out successfully.');
+        return $this->user->logout();
     }
 }

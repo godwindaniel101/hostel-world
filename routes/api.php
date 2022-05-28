@@ -10,7 +10,7 @@ Route::post('login', [LoginController::class, 'login']); //generate access token
 
 Route::middleware('auth:api')->group(function () { 
     Route::delete('logout', [LoginController::class, 'logout']);//invalidate access token
-    Route::get('events', [EventController::class, 'index']);
-    Route::get('events_v2', [EventController::class, 'indexTwo']);
+    Route::get('events', [EventController::class, 'eventsFromDB']);
+    Route::get('events_json', [EventController::class, 'eventsFromJSON']);
 });
 

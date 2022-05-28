@@ -8,7 +8,7 @@
         "/api/login": {
             "post": {
                 "tags": [
-                    "auth"
+                    "Authentication"
                 ],
                 "summary": "Sign in",
                 "description": "Login by email, password",
@@ -110,7 +110,7 @@
         "/api/logout": {
             "delete": {
                 "tags": [
-                    "auth"
+                    "Authentication"
                 ],
                 "summary": "Logout",
                 "description": "Logout user and invalidate token",
@@ -175,7 +175,7 @@
         "/api/register": {
             "post": {
                 "tags": [
-                    "auth"
+                    "Authentication"
                 ],
                 "summary": "Register",
                 "description": "Register new user record",
@@ -273,11 +273,11 @@
         "/api/events": {
             "get": {
                 "tags": [
-                    "events"
+                    "Events"
                 ],
-                "summary": "Get Events",
-                "description": "Note : thiis endpoint has the date changed. to allow for testing of date",
-                "operationId": "getEvents",
+                "summary": "Get Events from DB",
+                "description": "Get seeded events from database (with valid dates)",
+                "operationId": "EventFromDB",
                 "parameters": [
                     {
                         "name": "term",
@@ -361,14 +361,14 @@
                 ]
             }
         },
-        "/api/events_v2": {
+        "/api/events_json": {
             "get": {
                 "tags": [
-                    "events"
+                    "Events"
                 ],
-                "summary": "Get Events V2",
-                "description": "Note : thiis endpoint has the date changed. to allow for testing of date",
-                "operationId": "getEventsV2",
+                "summary": "Get Events From JSON",
+                "description": "Get Events from JSON file with intended data intact",
+                "operationId": "EventFromJSON",
                 "parameters": [
                     {
                         "name": "term",

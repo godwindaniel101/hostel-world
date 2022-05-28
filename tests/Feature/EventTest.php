@@ -24,7 +24,7 @@ class EventTest extends AuthCase
         $response = $this->get('/api/events?date='.$date);
         $response->assertStatus(422);
         $data =  $response->getOriginalContent();
-        $this->assertEquals($data['message'], "The date must be a date after yesterday.");
+        $this->assertEquals($data['message'], "date has to be " . now()->format('Y-m-d') . " or futher.");
     }
 
     public function test_to_ensure_only_valid_date_format()

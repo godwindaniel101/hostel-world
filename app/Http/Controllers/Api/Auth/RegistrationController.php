@@ -2,19 +2,23 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
-use App\Models\User;
+use App\Repository\UserInterface;
 use App\Http\Requests\RegistrationRequest;
 use App\Http\Controllers\Api\BaseController;
 
 class RegistrationController extends BaseController
 {
+    public function __construct(UserInterface $userInterface)
+    {
+        $this->user = $userInterface;
+    }
     /**
      * @OA\Post(
      * path="/api/register",
      * summary="Register",
      * description="Register new user record",
      * operationId="authRegister",
-     * tags={"auth"},
+     * tags={"Authentication"},
      * @OA\RequestBody(
      *    required=true,
      *    description="Pass user credentials",
@@ -40,7 +44,7 @@ class RegistrationController extends BaseController
      *              type="string", 
      *              format="password", 
      *              example="PassWord12345"
-     * ),
+     *      ),
      *    ),
      * ),
      *   @OA\Response(
@@ -84,11 +88,7 @@ class RegistrationController extends BaseController
      */
     public function register(RegistrationRequest $request)
     {
-        $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
-        $user = User::create($input);
-        return $this->sendResponse($user, 'User register successfully.', 201);
+        return $this->user->register($request);
     }
-   
-   
+
 }

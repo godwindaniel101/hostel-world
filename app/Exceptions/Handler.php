@@ -46,7 +46,13 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $exception)
     {
-        $env = config('app.env');
+       
+        $this->reportable(function (Throwable $e) {
+            if (app()->bound('sentry')) {
+                app('sentry')->captureException($e);
+            }
+        });
+        
         if ($exception instanceof Exception && !($exception instanceof AuthenticationException)) {
             $code = $exception->getCode();
             if ($code == 0) $code = 500;
