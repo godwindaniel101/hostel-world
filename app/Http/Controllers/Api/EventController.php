@@ -86,19 +86,20 @@ class EventController extends BaseController
 
     public function index(EventRequest $request)
     {
-        $event = Event::query();
         $date =  $request->date;
         $term = $request->term;
+        $event = Event::select();
 
         if (!isEmpty($term)) {
-            $event = $event->where('city', 'like', '%' . $term . '%')
+            $event = $event
+                ->where('city', 'like', '%' . $term . '%')
                 ->orWhere('country', 'like', '%' . $term . '%');
         } // filter by term
 
         if (!isEmpty($date)) {
-            $event = $event->where('startDate', $date);
+            $event = $event->where('startDate', '=',  $date);
         } //search by date
-
+        
         $event = $event->paginate(20);
         $this->log($request, 'Succesfully Called Events');
         return $this->sendResponse($event, 'Events called successfully.');
