@@ -123,7 +123,8 @@ class EventController extends BaseController
 
     public function eventsFromDB(EventRequest $request)
     {
-        return $this->event->eventsFromDB($request);
+        $res= $this->event->eventsFromDB($request);
+        return $this->formatResponse($res);
     }
     /**
      * @OA\Get(
@@ -213,6 +214,7 @@ class EventController extends BaseController
      */
     public function eventsFromJSON(EventRequest $request)
     {
-        return $this->event->eventsFromJSON($request);
+        $res = $this->event->eventsFromJSON($request);
+        return $this->formatResponse($res);
     }
 }

@@ -21,19 +21,20 @@ class UserRepository implements UserInterface
     public function login($request)
     {
         if (!Auth::attempt($request->all())) {
-            return $this->sendError(null,'incorrect username or password.',422);
+            return $this->response(false, null, 'incorrect username or password.', 422);
         }
 
         $user = Auth::user();
         $user['token'] = $user->createToken('token')->accessToken;
-        return $this->sendSuccess($user, 'User login successfully.');
+        return $this->response(true, $user, 'User login successfully.', 200);
     }
-    
-    public function logout(){
+
+    public function logout()
+    {
         $user = Auth::user();
         $user = $user->token();
         $user->revoke();
-        return $this->sendSuccess(null, 'User logged out successfully.');
+        return $this->response(true, null, 'User logged out successfully.', 200);
     }
 
     public function register($request)
@@ -41,6 +42,6 @@ class UserRepository implements UserInterface
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user =  $this->model->create($input);
-        return $this->sendSuccess($user, 'User register successfully.', 201);
+        return $this->response(true, $user, 'User register successfully.', 201);
     }
 }

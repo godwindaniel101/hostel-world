@@ -127,7 +127,8 @@ class LoginController extends BaseController
      */
     public function login(LoginRequest $request)
     {
-        return $this->user->login($request);
+        $res =  $this->user->login($request);
+        return $this->formatResponse($res);
     }
     /**
      * @OA\Delete(
@@ -179,6 +180,7 @@ class LoginController extends BaseController
      */
     public function logout()
     {
-        return $this->user->logout();
+        $res = $this->user->logout();
+        return $this->formatResponse($res);
     }
 }

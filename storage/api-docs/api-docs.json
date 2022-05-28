@@ -5,108 +5,6 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/api/login": {
-            "post": {
-                "tags": [
-                    "Authentication"
-                ],
-                "summary": "Sign in",
-                "description": "Login by email, password",
-                "operationId": "authLogin",
-                "requestBody": {
-                    "description": "Pass user credentials",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "email",
-                                    "password"
-                                ],
-                                "properties": {
-                                    "email": {
-                                        "type": "string",
-                                        "format": "email",
-                                        "example": "user1@mail.com"
-                                    },
-                                    "password": {
-                                        "type": "string",
-                                        "format": "password",
-                                        "example": "PassWord12345"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Correct credentials response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean",
-                                            "default": "true"
-                                        },
-                                        "data": {
-                                            "properties": {
-                                                "id": {
-                                                    "type": "integer",
-                                                    "readOnly": "true",
-                                                    "example": "1"
-                                                },
-                                                "name": {
-                                                    "type": "string",
-                                                    "example": "John"
-                                                },
-                                                "email": {
-                                                    "description": "User unique email address",
-                                                    "type": "string",
-                                                    "format": "email",
-                                                    "readOnly": "true",
-                                                    "example": "user@gmail.com"
-                                                },
-                                                "email_verified_at": {
-                                                    "description": "Datetime marker of verification status",
-                                                    "type": "string",
-                                                    "format": "date-time",
-                                                    "readOnly": "true",
-                                                    "example": "2019-02-25 12:59:20"
-                                                },
-                                                "created_at": {
-                                                    "description": "Initial creation timestamp",
-                                                    "type": "string",
-                                                    "format": "date-time",
-                                                    "readOnly": "true"
-                                                },
-                                                "updated_at": {
-                                                    "description": "Last update timestamp",
-                                                    "type": "string",
-                                                    "format": "date-time",
-                                                    "readOnly": "true"
-                                                },
-                                                "token": {
-                                                    "type": "string"
-                                                }
-                                            },
-                                            "type": "object"
-                                        },
-                                        "message": {
-                                            "type": "string",
-                                            "example": "User login successfully."
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/api/logout": {
             "delete": {
                 "tags": [
@@ -537,30 +435,6 @@
             }
         },
         "responses": {
-            "422": {
-                "description": "Wrong credentials response",
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean",
-                                    "default": "false"
-                                },
-                                "data": {
-                                    "type": "object",
-                                    "default": "null"
-                                },
-                                "message": {
-                                    "type": "string",
-                                    "example": "incorrect username or password."
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            },
             "401": {
                 "description": "Unathenticated logout attempt",
                 "content": {

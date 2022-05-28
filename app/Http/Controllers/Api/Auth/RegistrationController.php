@@ -88,7 +88,8 @@ class RegistrationController extends BaseController
      */
     public function register(RegistrationRequest $request)
     {
-        return $this->user->register($request);
+        $res = $this->user->register($request);
+        return $this->formatResponse($res);
     }
 
 }

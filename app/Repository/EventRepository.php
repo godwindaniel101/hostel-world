@@ -35,9 +35,9 @@ class EventRepository implements EventInterface
             });
         } // filter by term
 
-        $event = $event->paginate(20);
+        $events = $event->paginate(20);
         $this->log($request, 'Succesfully Called Events');
-        return $this->sendSuccess($event, 'Events called successfully.');
+        return $this->response(true, $events, 'Events called successfully.', 200);
     }
     public function eventsFromJSON($request)
     {
@@ -57,7 +57,7 @@ class EventRepository implements EventInterface
 
         $events = (new Helpers())->paginate(extractValues($events), $page); //paginate collection
         $this->log($request, 'Succesfully Called Events');
-        return $this->sendSuccess($events, 'Events called successfully.');
+        return $this->response(true, $events, 'Events called successfully.', 200);
     }
     
     private function filterEvent($term, $event, $date)
