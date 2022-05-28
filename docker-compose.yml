@@ -1,42 +1,46 @@
-version: "3.8"
-
+version: '3'
+ 
 services:
-  mysql:
+  db:
     image: mysql:5.7
-    container_name: mysql
-    restart: always
-    ports:
-      - 3306:3306
+    container_name: db
     environment:
-      - MYSQL_HOST=localhost
-      - MYSQL_ROOT_HOST=localhost
-      - MYSQL_DATABASE=hostel_world
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=password
-      - MYSQL_ROOT_PASSWORD=password
+      MYSQL_ROOT_PASSWORD: my_secret_password
+      MYSQL_DATABASE: app_db
+      MYSQL_USER: db_user
+      MYSQL_PASSWORD: db_user_pass
+    ports:
+      - "6033:3306"
     volumes:
       - ./docker/mysqldata:/var/lib/mysql/
-
   phpmyadmin:
-      image: phpmyadmin:latest
-      ports:
-        - 8020:80
-      depends_on:
-        - mysql
-      environment:
-        PMA_HOST: mysql
-        PMA_USER: hostel_world
-        PMA_PASSWORD: password
-      restart: unless-stopped
-      
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    links:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: db_user
+      PMA_PASSWORD: db_user_pass
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8081:80
   app:
     container_name: app
     build:
       context: .
     ports:
       - "8008:80"
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USERNAME: db_user
+      DB_PASSWORD: db_user_pass
+      DB_DATABASE: app_db
     volumes:
       - ./:/var/www/html
       - ./apache/default.conf:/etc/apache2/sites-enabled/000-default.conf
     depends_on:
-      - mysql
+      - db

@@ -1,64 +1,113 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## About Application [Demo](https://hostel-world.herokuapp.com/)
+A simple php (Laravel) project to sort event for authenticated users
 
-## About Laravel
+- Authentication
+- Event Search System
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**System Requirement**
+- The software was designed on docker version 20.10.8
+- php => 7.4
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Setup
+- Install  [Composer](https://getcomposer.org/download/) 
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Clone application from git respository or unzip project archive
 
-## Learning Laravel
+- Open  project directory  `cd  hostel_world  `
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Copy environmental variables. `cp ./src/.env.example ./src/.env`
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Install dependencies    `composer install`
 
-## Laravel Sponsors
+- Setup databse variables in `.env`
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+- Finish setup by running   `composer install  && php artisan migrate --seed   && php artisan passport:install && php artisan serve -port=8008`
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+- Application should be available on  port 8008
 
-## Contributing
+**Running Application**
+- After can be brought up by runing `php artisan serve -port=8008`  
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- Application can be brought down by closing termial 
 
-## Code of Conduct
+**Testing  Application**
+- To run test `php artisan test`
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Docker Setup
+- Clone application from git respository or unzip project archive
+- Open  project directory  `cd  hostel_world  `
+- Copy environmental variables. `cp ./src/.env.example ./src/.env`
+- Spin up Docker    `docker-compose up --build -d`
+- Open Docker Bash  `docker-compose exec app /bin/bash`
+- Run the following command on Docker Bash
 
-## Security Vulnerabilities
+  `composer install  && php artisan migrate --seed   && php artisan passport:install`
+  
+- Application should be available on  port 8008
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Running Application**
+- After initial set up above application can easily be brought up by running the command   
+`docker-compose up --build -d`
+- Application can be brought down by running the command  `docker-compose down `
 
-## License
+**Testing  Application**
+-After initial set up above, spin up the application by running `docker-compose up --build -d`
+- Run application shell by running    `docker-compose exec app /bin/bash`
+- Run test by running  `php artisan test`
+ **Note**  Test is to be ran on application bash to persist PHP version on test and running instance.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+#End Points
+Base URL `http://localhost:8008/api`
+
+**Login**  
+
+`POST : {baseUrl}/login`
+
+Handles authentication of users
+
+**Register User**  
+
+`POST : {baseUrl}/register`
+
+Handles creation of new user
+
+**Events**  
+
+`GET : {baseUrl}/events`
+
+ **Note**  Data here are mirror images of intended json file, however the date was adjusted to valid dates.
+
+**Events(JSON)**  
+
+`GET : {baseUrl}/events_json`
+
+ **Note**  Data here are mirror images of intended json file, however the date was adjusted to valid dates.
+
+This endpoint gets events preloaded into the database
+
+
+
+**Software Assumptions**
+- a `GLOBAL CATCH` class was impemented to catch all errors thus eliminating the need for try and catch across the application
+- Only basic required endpoints were built, which are register, login, logout and get event data.
+
+- `log` is primarily storted on the `laravel log` file however, calls made to `events` endpoint are logged on the terminal
+
+- `Sentry` was integerated into the application to account for failing 
+
+- Database was included in the docker file to make the setp process easier.
+
+- The event date was adjusted to allow only valid dates as previous days date can not be used.
+
+- Port 8008, 6033 and 8020 are required to be available for Docker Container to work.
+
+- All response from the Application are also presented on **stdout**, thus visible on the Docker console.
+
+- Caching was not used in this application as the event data was not stated as persistent .
+
+
+##### Best  Regards!
+
+
