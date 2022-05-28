@@ -56,7 +56,7 @@ class Handler extends ExceptionHandler
         if ($exception instanceof Exception && !($exception instanceof AuthenticationException)) {
             $code = $exception->getCode();
             if ($code == 0) $code = 500;
-            // return (new Helpers())->errorResponder(null, $code, $exception->getMessage());
+            return (new Helpers())->errorResponder(null, $code, $exception->getMessage());
         }
         return parent::render($request, $exception);
     }
