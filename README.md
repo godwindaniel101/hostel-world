@@ -14,7 +14,7 @@ A simple php (Laravel) project to sort event for authenticated users
 
 - Clone application from git respository or unzip project archive
 
-- Open  project directory  `cd  hostel_world  `
+- Open  project directory  `cd  hostel-world  `
 
 - Copy environmental variables. `cp ./src/.env.example ./src/.env`
 
@@ -37,7 +37,7 @@ A simple php (Laravel) project to sort event for authenticated users
 
 ## Docker Setup
 - Clone application from git respository or unzip project archive
-- Open  project directory  `cd  hostel_world  `
+- Open  project directory  `cd  hostel-world  `
 - Copy environmental variables. `cp ./src/.env.example ./src/.env`
 - Spin up Docker    `docker-compose up --build -d`
 - Open Docker Bash  `docker-compose exec app /bin/bash`
