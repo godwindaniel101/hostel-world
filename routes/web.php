@@ -18,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/health', function () {
     return response()->json(["message" => "health check all good"]);
 });
+Route::get('/er', function () {
+    return view('er');
+});
 
 
 Route::fallback(function (Request $request) {

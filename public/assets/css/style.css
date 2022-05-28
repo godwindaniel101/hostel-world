@@ -1,0 +1,19 @@
+body{
+   box-sizing: border-box;
+   padding:0;
+   margin:0;
+}
+.er-image-wrap{
+    box-sizing: border-box;
+    width:100vw;
+    height:100vh;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.er-image-wrap img{
+    border:1px solid rgb(170, 167, 167);
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding:40px 20px;
+}
